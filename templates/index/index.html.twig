@@ -1,0 +1,21 @@
+{# Page d'accueil #}
+{% extends "layouts/front/frontoffice.html.twig" %}
+
+{% block section_one %}
+	{{ render(path('featured_products')) }}
+{% endblock %}
+{% block section_two %}
+	{% include "cms/_partials/navigation_presentation.html.twig" %}
+{% endblock %}
+{% block section_three %}
+	{{ render(path('popular_products')) }}
+{% endblock %}
+{% block section_four %}
+	{{ render(path('brands')) }}
+{% endblock %}
+{% block section_five %}
+	{% include "cms/_partials/about-us.html.twig" %}
+{% endblock %}
+{% block section_six %}
+	{% include "newsletter/_partials/keep-contact-form.html.twig" %}
+{% endblock %}

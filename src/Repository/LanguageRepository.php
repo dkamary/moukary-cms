@@ -14,9 +14,27 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class LanguageRepository extends ServiceEntityRepository
 {
+    const DEFAULT_LANGUAGE = 'fr';
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Language::class);
+    }
+
+    /**
+     * Recuperation d'une langue en fonction du Alpha2
+     *
+     * @param string $alpah2
+     * @return Language
+     */
+    public function getLanguageByAlpha2(string $alpah2): Language
+    {
+        $language = $this->findOneBy([
+            'isActive' => true,
+            'alpha2' => $alpah2,
+        ]);
+
+        return $language ? $language : $this->findOneBy(['alpha2' => self::DEFAULT_LANGUAGE]);
     }
 
     // /**

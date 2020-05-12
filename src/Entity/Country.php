@@ -71,10 +71,16 @@ class Country
      */
     private $productPromotions;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ShippingCountry", mappedBy="country")
+     */
+    private $shippingCountries;
+
     public function __construct()
     {
         $this->cities = new ArrayCollection();
         $this->productPromotions = new ArrayCollection();
+        $this->shippingCountries = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -222,6 +228,37 @@ class Country
             // set the owning side to null (unless already changed)
             if ($productPromotion->getCountry() === $this) {
                 $productPromotion->setCountry(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ShippingCountry[]
+     */
+    public function getShippingCountries(): Collection
+    {
+        return $this->shippingCountries;
+    }
+
+    public function addShippingCountry(ShippingCountry $shippingCountry): self
+    {
+        if (!$this->shippingCountries->contains($shippingCountry)) {
+            $this->shippingCountries[] = $shippingCountry;
+            $shippingCountry->setCountry($this);
+        }
+
+        return $this;
+    }
+
+    public function removeShippingCountry(ShippingCountry $shippingCountry): self
+    {
+        if ($this->shippingCountries->contains($shippingCountry)) {
+            $this->shippingCountries->removeElement($shippingCountry);
+            // set the owning side to null (unless already changed)
+            if ($shippingCountry->getCountry() === $this) {
+                $shippingCountry->setCountry(null);
             }
         }
 

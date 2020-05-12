@@ -49,10 +49,16 @@ class Post
      */
     private $postComments;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\PostMeta", mappedBy="post")
+     */
+    private $postMetas;
+
     public function __construct()
     {
         $this->postLangs = new ArrayCollection();
         $this->postComments = new ArrayCollection();
+        $this->postMetas = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -166,6 +172,37 @@ class Post
             // set the owning side to null (unless already changed)
             if ($postComment->getPost() === $this) {
                 $postComment->setPost(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PostMeta[]
+     */
+    public function getPostMetas(): Collection
+    {
+        return $this->postMetas;
+    }
+
+    public function addPostMeta(PostMeta $postMeta): self
+    {
+        if (!$this->postMetas->contains($postMeta)) {
+            $this->postMetas[] = $postMeta;
+            $postMeta->setPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removePostMeta(PostMeta $postMeta): self
+    {
+        if ($this->postMetas->contains($postMeta)) {
+            $this->postMetas->removeElement($postMeta);
+            // set the owning side to null (unless already changed)
+            if ($postMeta->getPost() === $this) {
+                $postMeta->setPost(null);
             }
         }
 

@@ -1,0 +1,306 @@
+{# template front office #}
+
+{% set user = app.user %}
+
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<title>
+			{% block page_title %}Delta Phi Services
+			{% endblock %}
+		</title>
+		{% block stylesheets %}
+			<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700"/>
+			<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}"/>
+			<link rel="stylesheet" href="{{ asset('assets/css/all.min.css') }}"/>
+			<link rel="stylesheet" href="{{ asset('assets/css/style.min.css') }}"/>
+		{% endblock %}
+	</head>
+	<body>
+		{% block body %}
+			<div class="container-fluid px-0">
+				<header>
+					{% block navbar %}
+						<nav id="navbar" class="container px-0">
+							<div id="navbrand">
+								<a href="#">
+									<img src="https://fakeimg.pl/64x64/?text=LOGO" alt="LOGO" height="64" width="64"/>
+									<span>DELTA PHI SERVICES</span>
+								</a>
+							</div>
+							<button id="hamburger-menu">
+								<i class="fas fa-bars"></i>
+							</button>
+							<ul id="menu">
+								<li class="menu-item">
+									<a href="#" class="has-submenu" data-target="#categories">Categories</a>
+									<i class="fas fa-angle-down"></i>
+									<ul class="submenu" id="categories">
+										<li class="menu-item">
+											<div class="category">
+												<div class="img-container">
+													<img src="https://fakeimg.pl/150x150/" alt=""/>
+												</div>
+												<div class="category-name">
+													<a href="">Categorie 1</a>
+												</div>
+											</div>
+										</li>
+										<li class="menu-item">
+											<div class="category">
+												<div class="img-container">
+													<img src="https://fakeimg.pl/150x150/" alt=""/>
+												</div>
+												<div class="category-name">
+													<a href="">Categorie 2</a>
+												</div>
+											</div>
+										</li>
+										<li class="menu-item">
+											<div class="category">
+												<div class="img-container">
+													<img src="https://fakeimg.pl/150x150/" alt=""/>
+												</div>
+												<div class="category-name">
+													<a href="">Categorie 3</a>
+												</div>
+											</div>
+										</li>
+										<li class="menu-item">
+											<div class="category">
+												<div class="img-container">
+													<img src="https://fakeimg.pl/150x150/" alt=""/>
+												</div>
+												<div class="category-name">
+													<a href="">Categorie 4</a>
+												</div>
+											</div>
+										</li>
+										<li class="menu-item">
+											<div class="category">
+												<div class="img-container">
+													<img src="https://fakeimg.pl/150x150/" alt=""/>
+												</div>
+												<div class="category-name">
+													<a href="">Categorie 5</a>
+												</div>
+											</div>
+										</li>
+									</ul>
+								</li>
+								<li class="menu-item">
+									<a href="#">A Propos</a>
+								</li>
+								<li class="menu-item">
+									<a href="#">FAQ</a>
+								</li>
+								<li class="menu-item">
+									<a href="#">Contact</a>
+								</li>
+							</ul>
+							<ul id="user-menu">
+								{% if user is null %}
+									<li class="menu-item">
+										<a href="#">
+											<i class="fas fa-sign-in-alt"></i>
+											S'inscrire
+										</a>
+									</li>
+									<li class="menu-item">
+										<a href="{{ path('app_login') }}" data-toggle="modal" data-target="#modal-login-form">
+											<i class="fas fa-user-alt"></i>
+											Se connecter
+										</a>
+									</li>
+								{% else %}
+									<li class="menu-item">
+										<a href="{{ path('customer_dashboard') }}">
+											<i class="fas fa-user-alt"></i>
+											{{ user.email }}
+										</a>
+									</li>
+								{% endif %}
+
+								<li class="menu-item">
+									<a href="#">
+										<i class="fas fa-shopping-cart"></i>
+										Mon Panier (0)
+									</a>
+								</li>
+							</ul>
+						</nav>
+					{% endblock %}
+				</header>
+				{% block search_form %}
+					<section class="container-fluid" id="slider-section">
+						<div class="container">
+							<form action="#" id="search-form" action="GET">
+								<div class="category-search-container">
+									<select name="category" id="category">
+										<option value="0">Toutes les categories</option>
+										<option value="1">Categorie 1</option>
+										<option value="2">Categorie 2</option>
+									</select>
+								</div>
+								<div class="category-search-input">
+									<input type="search" name="search" id="search" placeholder="Rechercher un mot un produit ..."/>
+								</div>
+								<div class="category-search-button">
+									<button type="submit">
+										<i class="fas fa-search"></i>
+										Rechercher
+									</button>
+								</div>
+							</form>
+						</div>
+					</section>
+				{% endblock %}
+				<main>
+					{% block main_content %}
+						{% block section_one %}{% endblock %}
+						{% block section_two %}{% endblock %}
+						{% block section_three %}{% endblock %}
+						{% block section_four %}{% endblock %}
+						{% block section_five %}{% endblock %}
+						{% block section_six %}{% endblock %}
+					{% endblock %}
+
+				</main>
+
+				<footer class="container-fluid py-0">
+					{% block footer %}
+						{% block footer_section_one %}
+							<section class="row" id="social-network">
+								<div class="col-12 d-flex justify-content-center align-items-center">
+									<div class="social-network">
+										<a href="#">
+											<i class="fab fa-facebook-square fa-2x"></i>
+										</a>
+									</div>
+									<div class="social-network">
+										<a href="#">
+											<i class="fab fa-instagram-square fa-2x"></i>
+										</a>
+									</div>
+									<div class="social-network">
+										<a href="#">
+											<i class="fab fa-twitter-square fa-2x"></i>
+										</a>
+									</div>
+									<div class="social-network">
+										<a href="#">
+											<i class="fab fa-youtube-square fa-2x"></i>
+										</a>
+									</div>
+								</div>
+							</section>
+						{% endblock %}
+						<section class="container">
+							<div class="row" id="footer-link">
+								<div class="col-md-3 col-12 p-3">
+									{% block footer_section_two %}
+										<h3>Categories</h3>
+										<ul>
+											<li><a href="#">Categorie 1</a></li>
+											<li><a href="#">Categorie 2</a></li>
+											<li><a href="#">Categorie 3</a></li>
+											<li><a href="#">Categorie 4</a></li>
+											<li><a href="#">Categorie 5</a></li>
+											<li><a href="#">Categorie 6</a></li>
+										</ul>
+									{% endblock %}
+								</div>
+								<div class="col-md-3 col-12 p-3">
+									{% block footer_section_three %}
+										<h3>A propos</h3>
+										<ul>
+											<li><a href="#">FAQ</a></li>
+											<li><a href="#">Contactez-nous</a></li>
+											<li><a href="#">A propos</a></li>
+										</ul>
+									{% endblock %}
+								</div>
+								<div class="row" id="footer-link">
+									<div class="col-md-3 col-12 p-3">
+										{% block footer_section_four %}
+											<h3>Legal</h3>
+											<ul>
+												<li><a href="#">Termes et Conditions</a></li>
+												<li><a href="#">CGU</a></li>
+												<li><a href="#">CGV</a></li>
+											</ul>
+										{% endblock %}
+									</div>
+								</div>
+								<div class="row" id="footer-link">
+									<div class="col-md-3 col-12 p-3">
+										{% block footer_section_five %}
+											<h3>Ressources</h3>
+											<ul>
+												<li><a href="#">Mon Compte</a></li>
+												<li><a href="#">Mon Panier</a></li>
+												<li><a href="#">Mes Commandes</a></li>
+												<li><a href="#">CGV</a></li>
+											</ul>
+										{% endblock %}
+									</div>
+								</div>
+							</div>
+						</section>
+						<section class="container-fluid p-0" id="deltaphi-address">
+							<div class="row p-3">
+								{% block footer_section_six %}
+									<p class="col-12 text-center">
+										260 Avenue de la Forêt de Soignes 1640 Rhode Saint Genèse Belgique
+										<br>
+										<a href="mailto:info@deltaphi-services.net">info@deltaphi-services.net</a>
+										-
+										<a href="tel:+3228880722">+32 28 88 07 22</a>
+									</p>
+									<p class="col-12 text-center">
+										Delta Phi Service &copy; 2020
+									</p>
+								{% endblock %}
+							</div>
+						</section>
+					{% endblock %}
+				</footer>
+
+			</div>
+
+			{% block section_login_form %}
+				<!-- Modal -->
+				<div class="modal fade" id="modal-login-form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">
+									<i class="fas fa-user-circle"></i>
+									Connexion utilisateur
+								</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								{% include "security/_partials/login-form.html.twig" %}
+							</div>
+							{# <div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-primary">Save changes</button>
+							</div> #}
+						</div>
+					</div>
+				</div>
+			{% endblock %}
+
+			{% block javascripts %}
+				<script src="{{ asset('assets/js/jquery-3.5.1.min.js') }}"></script>
+				<script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+				<script src="{{ asset('assets/js/script.js') }}"></script>
+			{% endblock %}
+		{% endblock %}
+	</body>
+</html>

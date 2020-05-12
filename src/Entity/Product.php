@@ -148,6 +148,16 @@ class Product
      */
     private $productComments;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Post")
+     */
+    private $image;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isActive;
+
     public function __construct()
     {
         $this->productShippings = new ArrayCollection();
@@ -529,6 +539,30 @@ class Product
                 $productComment->setProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getImage(): ?Post
+    {
+        return $this->image;
+    }
+
+    public function setImage(?Post $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
 
         return $this;
     }

@@ -38,9 +38,15 @@ class Currency
      */
     private $countries;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ShippingCountry", mappedBy="currency")
+     */
+    private $shippingCountries;
+
     public function __construct()
     {
         $this->countries = new ArrayCollection();
+        $this->shippingCountries = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -109,6 +115,37 @@ class Currency
             // set the owning side to null (unless already changed)
             if ($country->getCurrency() === $this) {
                 $country->setCurrency(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ShippingCountry[]
+     */
+    public function getShippingCountries(): Collection
+    {
+        return $this->shippingCountries;
+    }
+
+    public function addShippingCountry(ShippingCountry $shippingCountry): self
+    {
+        if (!$this->shippingCountries->contains($shippingCountry)) {
+            $this->shippingCountries[] = $shippingCountry;
+            $shippingCountry->setCurrency($this);
+        }
+
+        return $this;
+    }
+
+    public function removeShippingCountry(ShippingCountry $shippingCountry): self
+    {
+        if ($this->shippingCountries->contains($shippingCountry)) {
+            $this->shippingCountries->removeElement($shippingCountry);
+            // set the owning side to null (unless already changed)
+            if ($shippingCountry->getCurrency() === $this) {
+                $shippingCountry->setCurrency(null);
             }
         }
 

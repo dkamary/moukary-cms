@@ -1,0 +1,18 @@
+{% extends 'layouts/front/frontoffice.html.twig' %}
+
+{% block page_title %}Connexion
+{% endblock %}
+
+{% block section_one %}
+	<div class="container bg-white">
+		<div class="row">
+			<div class="col-md-6 col-12 mx-auto my-3">
+				<h1 class="text-center">
+                    Connexion Utilisateur
+                </h1>
+                <hr>
+				{% include "security/_partials/login-form.html.twig" %}
+			</div>
+		</div>
+	</div>
+{% endblock %}

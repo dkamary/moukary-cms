@@ -43,9 +43,20 @@ class Shipping
      */
     private $shippingLangs;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $price;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ShippingCountry", mappedBy="shipping")
+     */
+    private $shippingCountries;
+
     public function __construct()
     {
         $this->shippingLangs = new ArrayCollection();
+        $this->shippingCountries = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -126,6 +137,49 @@ class Shipping
             // set the owning side to null (unless already changed)
             if ($shippingLang->getShipping() === $this) {
                 $shippingLang->setShipping(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+
+    public function setPrice(?float $price): self
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ShippingCountry[]
+     */
+    public function getShippingCountries(): Collection
+    {
+        return $this->shippingCountries;
+    }
+
+    public function addShippingCountry(ShippingCountry $shippingCountry): self
+    {
+        if (!$this->shippingCountries->contains($shippingCountry)) {
+            $this->shippingCountries[] = $shippingCountry;
+            $shippingCountry->setShipping($this);
+        }
+
+        return $this;
+    }
+
+    public function removeShippingCountry(ShippingCountry $shippingCountry): self
+    {
+        if ($this->shippingCountries->contains($shippingCountry)) {
+            $this->shippingCountries->removeElement($shippingCountry);
+            // set the owning side to null (unless already changed)
+            if ($shippingCountry->getShipping() === $this) {
+                $shippingCountry->setShipping(null);
             }
         }
 
